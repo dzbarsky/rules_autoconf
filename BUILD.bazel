@@ -1,0 +1,70 @@
+load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+
+HEADERS = {
+	"HAVE_ATTR_XATTR_H": "attr/xattr.h",
+	"HAVE_ERRNO_H": "errno.h",
+	"HAVE_FCNTL_H": "fcntl.h",
+	"HAVE_GRP_H": "grp.h",
+	"HAVE_IO_H": "io.h",
+	"HAVE_LIMITS_H": "limits.h",
+	"HAVE_LINUX_FS_H": "linux/fs.h",
+	"HAVE_PATHS_H": "paths.h",
+	"HAVE_PWD_H": "pwd.h",
+	"HAVE_STDINT_H": "stdint.h",
+	"HAVE_STRING_H": "string.h",
+	"HAVE_SYS_STAT_H": "sys/stat.h",
+	"HAVE_SYS_TYPES_H": "sys/types.h",
+	"HAVE_SYS_XATTR_H": "sys/xattr.h",
+	"HAVE_UNISTD_H": "unistd.h",
+	"HAVE_WCHAR_H": "wchar.h",
+}
+
+write_file(
+    name = "write_config_generator",
+	out = "config_generator.c",
+	content = [
+		"#include <stdio.h>",
+		"#include <stdlib.h>",
+	] + ["""
+#if __has_include(<{header}>)
+    #define {define} 1
+#else
+    #define {define} 0
+#endif
+""".format(define=define, header=header)
+	for define, header in HEADERS.items()
+	] + ["""
+int main(int argc, char *argv[]) {
+    FILE *f = fopen(argv[1], "w");
+    if (!f) {
+        perror("fopen");
+        return 1;
+    }
+	fprintf(f, "#ifndef _RULES_AUTOCONF_CONFIG_H\\n");
+	fprintf(f, "#define _RULES_AUTOCONF_CONFIG_H\\n\\n");
+"""] + ['    fprintf(f, "#define {define} %d\\n", {define});'.format(define=define) for define in HEADERS.keys()
+	] + ["""
+	fprintf(f, "\\n#endif // _RULES_AUTOCONF_CONFIG_H\\n");
+  	fclose(f);
+ 	return 0;
+}""",
+	]
+)
+
+cc_binary(
+	name = "config_generator",
+	srcs = ["config_generator.c"],
+)
+
+run_binary(
+	name = "gen_config",
+	tool = ":config_generator",
+	args = ["$(execpath :config.h)"],
+	outs = ["config.h"],
+)
+
+cc_library(
+	name = "config",
+	srcs = ["config.h"],
+)
