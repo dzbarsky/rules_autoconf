@@ -1,7 +1,7 @@
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
-load("//:defs.bzl", "non_osx", "non_windows", "windows_only")
+load("//:defs.bzl", "non_osx", "non_windows", "windows_only", "define")
 
 HEADERS = {
 	"HAVE_ATTR_XATTR_H": "attr/xattr.h",
@@ -57,7 +57,24 @@ int main(int argc, char *argv[]) {
     fprintf(f, "#define {define} 0\\n");
 #endif""".format(define=define, header=header)
 	for define, header in HEADERS.items()
-] + ["""
+] + ['   fprintf(f, "\\n");'] +
+non_windows("HAVE_CLOCK_GETTIME") +
+non_osx("HAVE_FTIME") +
+non_windows("HAVE_GETTIMEOFDAY") +
+non_windows("HAVE_GMTIME_R") +
+non_windows("HAVE_LIBPTHREAD") +
+non_windows("HAVE_LOCALTIME_R") +
+non_windows("HAVE_STAT") +
+non_windows("HAVE_STRXFRM_L") +
+windows_only("HAVE__STAT") +
+non_windows("HAVE_DECL_GETENTROPY") +
+non_windows("HAVE_DECL_GLOB") +
+non_windows("HAVE_DECL_MMAP") +
+non_windows("HAVE_DLOPEN") +
+non_windows("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR") +
+define("HAVE_SNPRINTF") +
+define("HAVE_VSNPRINTF") +
+["""
     fprintf(f, "\\n#endif // _RULES_AUTOCONF_CONFIG_H\\n");
     fclose(f);
     return 0;
@@ -77,43 +94,9 @@ run_binary(
 	outs = ["config.h"],
 )
 
-HAVE_CLOCK_GETTIME = non_windows("HAVE_CLOCK_GETTIME")
-HAVE_FTIME = non_osx("HAVE_FTIME")
-HAVE_GETTIMEOFDAY = non_windows("HAVE_GETTIMEOFDAY")
-HAVE_GMTIME_R = non_windows("HAVE_GMTIME_R")
-HAVE_LIBPTHREAD = non_windows("HAVE_LIBPTHREAD")
-HAVE_LOCALTIME_R = non_windows("HAVE_LOCALTIME_R")
-HAVE_STAT = non_windows("HAVE_STAT")
-HAVE_STRXFRM_L = non_windows("HAVE_STRXFRM_L")
-HAVE__STAT = windows_only("HAVE__STAT")
-HAVE_DECL_GETENTROPY = non_windows("HAVE_DECL_GETENTROPY")
-HAVE_DECL_GLOB = non_windows("HAVE_DECL_GLOB")
-HAVE_DECL_MMAP = non_windows("HAVE_DECL_MMAP")
-HAVE_DLOPEN = non_windows("HAVE_DLOPEN")
-HAVE_FUNC_ATTRIBUTE_DESTRUCTOR = non_windows("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR")
-
 cc_library(
 	name = "config",
 	hdrs = ["config.h"],
-	defines = (
-		HAVE_CLOCK_GETTIME +
-		HAVE_DECL_GETENTROPY +
-		HAVE_DECL_GLOB +
-		HAVE_DECL_MMAP +
-		HAVE_DLOPEN +
-		HAVE_FUNC_ATTRIBUTE_DESTRUCTOR +
-		HAVE_FTIME +
-		HAVE_GETTIMEOFDAY +
-		HAVE_GMTIME_R +
-		HAVE_LIBPTHREAD +
-		HAVE_LOCALTIME_R +
-		HAVE_STAT +
-		HAVE_STRXFRM_L +
-		HAVE__STAT
-	) + [
-		"HAVE_SNPRINTF",
-		"HAVE_VSNPRINTF",
-	],
 	include_prefix = "rules_autoconf",
 	visibility = ["//visibility:public"],
 )
