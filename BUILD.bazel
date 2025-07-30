@@ -4,6 +4,7 @@ load("//:defs.bzl", "non_osx", "non_windows", "windows_only")
 
 HEADERS = {
 	"HAVE_ATTR_XATTR_H": "attr/xattr.h",
+	"HAVE_DLFCN_H": "dlfcn.h",
 	"HAVE_ERRNO_H": "errno.h",
 	"HAVE_FCNTL_H": "fcntl.h",
 	"HAVE_GRP_H": "grp.h",
@@ -15,6 +16,8 @@ HEADERS = {
 	"HAVE_PATHS_H": "paths.h",
 	"HAVE_PWD_H": "pwd.h",
 	"HAVE_STDINT_H": "stdint.h",
+	"HAVE_STDIO_H": "stdio.h",
+	"HAVE_STDLIB_H": "stdlib.h",
 	"HAVE_STRING_H": "string.h",
 	"HAVE_SYS_SELECT_H": "sys/select.h",
 	"HAVE_SYS_STAT_H": "sys/stat.h",
