@@ -24,25 +24,10 @@ on:
         required: true
         type: string
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    outputs:
-      tag_name: ${{ steps.setvars.outputs.tag_name }}
-      module_version: ${{ steps.setvars.outputs.module_version }}
-    steps:
-      - name: Set tag and version
-        id: setvars
-        run: |
-          TAG_NAME="${{ inputs.tag_name || github.ref_name }}"
-          MODULE_VERSION="${TAG_NAME#v}"
-          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
-          echo "module_version=$MODULE_VERSION" >> "$GITHUB_OUTPUT"
-
   publish:
     uses: bazel-contrib/publish-to-bcr/.github/workflows/publish.yaml@v0.2.2
     with:
-      tag_name: ${{ needs.prepare.outputs.tag_name }}
-      module-version: ${{ needs.prepare.outputs.module_version }}
+      tag_name: ${{ github.ref_name }}
       # GitHub repository which is a fork of the upstream where the Pull Request will be opened.
       registry_fork: dzbarsky/bazel-central-registry
       draft: false
@@ -54,3 +39,4 @@ jobs:
     secrets:
       # Necessary to push to the BCR fork, and to open a pull request against a registry
       publish_token: ${{ secrets.publish_token || secrets.BCR_PUBLISH_TOKEN }}
+
