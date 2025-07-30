@@ -28,6 +28,7 @@ jobs:
     uses: bazel-contrib/publish-to-bcr/.github/workflows/publish.yaml@v0.2.2
     with:
       tag_name: ${{ inputs.tag_name }}
+      module-version: ${{ inputs.tag_name | replace('^v', '') }}
       # GitHub repository which is a fork of the upstream where the Pull Request will be opened.
       registry_fork: dzbarsky/bazel-central-registry
       draft: false
