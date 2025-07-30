@@ -1,5 +1,6 @@
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 load("//:defs.bzl", "non_osx", "non_windows", "windows_only")
 
 HEADERS = {
@@ -103,4 +104,10 @@ cc_library(
 	],
 	include_prefix = "rules_autoconf",
 	visibility = ["//visibility:public"],
+)
+
+cc_test(
+	name = "config_test",
+	srcs = ["config_test.c"],
+	deps = [":config"],
 )
