@@ -15,11 +15,14 @@ HEADERS = {
 	"HAVE_LIMITS_H": "limits.h",
 	"HAVE_LINUX_FS_H": "linux/fs.h",
 	"HAVE_PATHS_H": "paths.h",
+	"HAVE_POLL_H": "poll.h",
+	"HAVE_PTHREAD_H": "pthread.h",
 	"HAVE_PWD_H": "pwd.h",
 	"HAVE_STDINT_H": "stdint.h",
 	"HAVE_STDIO_H": "stdio.h",
 	"HAVE_STDLIB_H": "stdlib.h",
 	"HAVE_STRING_H": "string.h",
+	"HAVE_STRINGS_H": "strings.h",
 	"HAVE_SYS_SELECT_H": "sys/select.h",
 	"HAVE_SYS_STAT_H": "sys/stat.h",
 	"HAVE_SYS_TIMEB_H": "sys/timeb.h",
@@ -34,31 +37,30 @@ HEADERS = {
 write_file(
     name = "write_config_generator",
 	out = "config_generator.c",
-	content = [
-		"#include <stdio.h>",
-		"#include <stdlib.h>",
-	] + ["""
-#if __has_include(<{header}>)
-    #define {define} 1
-#else
-    #define {define} 0
-#endif
-""".format(define=define, header=header)
-	for define, header in HEADERS.items()
-	] + ["""
+	content = ["""
+#include <stdio.h>
+#include <stdlib.h>
+
 int main(int argc, char *argv[]) {
     FILE *f = fopen(argv[1], "w");
     if (!f) {
         perror("fopen");
         return 1;
     }
-	fprintf(f, "#ifndef _RULES_AUTOCONF_CONFIG_H\\n");
-	fprintf(f, "#define _RULES_AUTOCONF_CONFIG_H\\n\\n");
-"""] + ['    fprintf(f, "#define {define} %d\\n", {define});'.format(define=define) for define in HEADERS.keys()
-	] + ["""
-	fprintf(f, "\\n#endif // _RULES_AUTOCONF_CONFIG_H\\n");
-  	fclose(f);
- 	return 0;
+
+    fprintf(f, "#ifndef _RULES_AUTOCONF_CONFIG_H\\n");
+    fprintf(f, "#define _RULES_AUTOCONF_CONFIG_H\\n\\n");
+"""] + [
+"""#if __has_include(<{header}>)
+    fprintf(f, "#define {define} 1\\n");
+#else
+    fprintf(f, "#define {define} 0\\n");
+#endif""".format(define=define, header=header)
+	for define, header in HEADERS.items()
+] + ["""
+    fprintf(f, "\\n#endif // _RULES_AUTOCONF_CONFIG_H\\n");
+    fclose(f);
+    return 0;
 }""",
 	]
 )
@@ -84,12 +86,22 @@ HAVE_LOCALTIME_R = non_windows("HAVE_LOCALTIME_R")
 HAVE_STAT = non_windows("HAVE_STAT")
 HAVE_STRXFRM_L = non_windows("HAVE_STRXFRM_L")
 HAVE__STAT = windows_only("HAVE__STAT")
+HAVE_DECL_GETENTROPY = non_windows("HAVE_DECL_GETENTROPY")
+HAVE_DECL_GLOB = non_windows("HAVE_DECL_GLOB")
+HAVE_DECL_MMAP = non_windows("HAVE_DECL_MMAP")
+HAVE_DLOPEN = non_windows("HAVE_DLOPEN")
+HAVE_FUNC_ATTRIBUTE_DESTRUCTOR = non_windows("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR")
 
 cc_library(
 	name = "config",
 	hdrs = ["config.h"],
 	defines = (
 		HAVE_CLOCK_GETTIME +
+		HAVE_DECL_GETENTROPY +
+		HAVE_DECL_GLOB +
+		HAVE_DECL_MMAP +
+		HAVE_DLOPEN +
+		HAVE_FUNC_ATTRIBUTE_DESTRUCTOR +
 		HAVE_FTIME +
 		HAVE_GETTIMEOFDAY +
 		HAVE_GMTIME_R +
