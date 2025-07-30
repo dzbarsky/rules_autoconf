@@ -101,4 +101,6 @@ cc_library(
 		"HAVE_SNPRINTF",
 		"HAVE_VSNPRINTF",
 	],
+	include_prefix = "rules_autoconf",
+	visibility = ["//visibility:public"],
 )
