@@ -1,23 +1,20 @@
-def _def(name, v):
-    return ["""   fprintf(f, "#define %s %s\\n");""" % (name, v)]
+def define(name):
+    return ["""   fprintf(f, "#define %s 1\\n");""" % name]
 
 def non_windows(name):
     return select({
-        "@platforms//os:windows": _def(name, "0"),
-        "//conditions:default": _def(name, "1"),
+        "@platforms//os:windows": [],
+        "//conditions:default": define(name),
     })
 
 def windows_only(name):
     return select({
-        "@platforms//os:windows": _def(name, "1"),
-        "//conditions:default": _def(name, "0"),
+        "@platforms//os:windows": define(name),
+        "//conditions:default": [],
     })
 
 def non_osx(name):
     return select({
-        "@platforms//os:osx": _def(name, "0"),
-        "//conditions:default": _def(name, "1"),
+        "@platforms//os:osx": [],
+        "//conditions:default": define(name),
     })
-
-def define(name):
-    return _def(name, "1")

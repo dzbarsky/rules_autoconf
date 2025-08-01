@@ -53,8 +53,6 @@ int main(int argc, char *argv[]) {
 """] + [
 """#if __has_include(<{header}>)
     fprintf(f, "#define {define} 1\\n");
-#else
-    fprintf(f, "#define {define} 0\\n");
 #endif""".format(define=define, header=header)
 	for define, header in HEADERS.items()
 ] + ['   fprintf(f, "\\n");'] +
