@@ -72,6 +72,7 @@ non_windows("HAVE_DLOPEN") +
 non_windows("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR") +
 define("HAVE_SNPRINTF") +
 define("HAVE_VSNPRINTF") +
+define("STDC_HEADERS") +
 ["""
     fprintf(f, "\\n#endif // _RULES_AUTOCONF_CONFIG_H\\n");
     fclose(f);
