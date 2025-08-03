@@ -120,10 +120,31 @@ int main(int argc, char *argv[]) {
                   )
                   for define, header in HEADERS.items()
               ] + ['   fprintf(f, "\\n");'] +
+              define("HAVE_ABORT") +
+              define("HAVE_ABS") +
+              define("HAVE_ATEXIT") +
+              define("HAVE_ATOF") +
+              define("HAVE_ATOI") +
+              define("HAVE_ATOLL") +
+              define("HAVE_BSEARCH") +
+              define("HAVE_CALLOC") +
+              define("HAVE_CLOCK") +
+              define("HAVE_DECL_ABORT") +
+              define("HAVE_DECL_ABS") +
+              define("HAVE_DECL_ATOF") +
+              define("HAVE_DECL_ATOI") +
+              define("HAVE_DECL_ATOLL") +
               define("HAVE_DECL_BASENAME") +
+              define("HAVE_DECL_BSEARCH") +
               define("HAVE_DECL_CALLOC") +
+              define("HAVE_DECL_EXIT") +
+              define("HAVE_DECL_FABS") +
+              define("HAVE_DECL_FLOOR") +
               define("HAVE_DECL_FREE") +
+              define("HAVE_DECL_GETENV") +
+              define("HAVE_DECL_LABS") +
               define("HAVE_DECL_MALLOC") +
+              define("HAVE_DECL_MEMCMP") +
               define("HAVE_DECL_MEMCPY") +
               define("HAVE_DECL_MEMMOVE") +
               define("HAVE_DECL_MEMSET") +
@@ -132,20 +153,57 @@ int main(int argc, char *argv[]) {
               define("HAVE_DECL_RAND") +
               define("HAVE_DECL_REALLOC") +
               define("HAVE_DECL_SIGNAL") +
+              define("HAVE_DECL_SIN") +
               define("HAVE_DECL_SNPRINTF") +
+              define("HAVE_DECL_SQRT") +
+              define("HAVE_DECL_SRAND") +
               define("HAVE_DECL_STRCHR") +
               define("HAVE_DECL_STRCMP") +
               define("HAVE_DECL_STRERROR") +
               define("HAVE_DECL_STRLEN") +
               define("HAVE_DECL_STRNCMP") +
               define("HAVE_DECL_STRSTR") +
+              define("HAVE_DECL_STRTOD") +
+              define("HAVE_DECL_STRTOF") +
+              define("HAVE_DECL_STRTOL") +
+              define("HAVE_DECL_STRTOUL") +
               define("HAVE_DECL_TIME") +
               define("HAVE_DECL_VSNPRINTF") +
+              define("HAVE_EXIT") +
+              define("HAVE_FABS") +
               define("HAVE_FILENO") +
+              define("HAVE_FLOOR") +
+              define("HAVE_FPRINTF") +
+              define("HAVE_FREE") +
               define("HAVE_FSTAT") +
               define("HAVE_GETADDRINFO") +
+              define("HAVE_GETENV") +
               define("HAVE_ISCNTRL") +
+              define("HAVE_LABS") +
+              define("HAVE_LLABS") +
+              define("HAVE_LOCALTIME") +
+              define("HAVE_MALLOC") +
+              define("HAVE_MEMCMP") +
+              define("HAVE_MEMCPY") +
+              define("HAVE_MEMMOVE") +
+              define("HAVE_MEMSET") +
+              define("HAVE_PRINTF") +
+              define("HAVE_QSORT") +
+              define("HAVE_RAND") +
+              define("HAVE_REALLOC") +
+              define("HAVE_SIN") +
               define("HAVE_SNPRINTF") +
+              define("HAVE_SPRINTF") +
+              define("HAVE_SQRT") +
+              define("HAVE_SRAND") +
+              define("HAVE_STRTOD") +
+              define("HAVE_STRTOF") +
+              define("HAVE_STRTOL") +
+              define("HAVE_STRTOOLD") +
+              define("HAVE_STRTOUL") +
+              define("HAVE_TIME") +
+              define("HAVE_TMPFILE") +
+              define("HAVE_TMPNAM") +
               define("HAVE_TYPE_INT16_T") +
               define("HAVE_TYPE_INT32_T") +
               define("HAVE_TYPE_INT64_T") +
@@ -161,25 +219,66 @@ int main(int argc, char *argv[]) {
               define("HAVE_TYPE_UINT8_T") +
               define("HAVE_TYPE_UINTPTR_T") +
               define("HAVE_UINTPTR_T") +
+              define("HAVE_VFPRINTF") +
+              define("HAVE_VPRINTF") +
               define("HAVE_VSNPRINTF") +
+              define("HAVE_VSPRINTF") +
               define("HAVE___INLINE") +
               define("HAVE___RESTRICT") +
               define("STDC_HEADERS") +
+              linux_only("HAVE_DECL_EPOLL_CREATE") +
+              linux_only("HAVE_DECL_EPOLL_CTL") +
+              linux_only("HAVE_DECL_EPOLL_WAIT") +
               linux_only("HAVE_DECL_EVENTFD") +
+              linux_only("HAVE_DECL_EVENTFD2") +
               linux_only("HAVE_DECL_GETRANDOM") +
               linux_only("HAVE_DECL_INOTIFY_INIT") +
+              linux_only("HAVE_DECL_INOTIFY_INIT1") +
               linux_only("HAVE_DECL_MEMMEM") +
+              linux_only("HAVE_DECL_PIPE2") +
+              linux_only("HAVE_DECL_PREAD") +
+              linux_only("HAVE_DECL_PREADV") +
+              linux_only("HAVE_DECL_PWRITE") +
+              linux_only("HAVE_DECL_PWRITEV") +
+              linux_only("HAVE_DECL_SENDFILE") +
               linux_only("HAVE_DECL_SENDFILE64") +
+              linux_only("HAVE_DECL_SIGNALFD") +
+              linux_only("HAVE_DECL_SIGNALFD4") +
+              linux_only("HAVE_DECL_SPLICE") +
               linux_only("HAVE_DECL_STRRCHRNUL") +
+              linux_only("HAVE_DECL_TEE") +
               linux_only("HAVE_DECL_TIMERFD_CREATE") +
               linux_only("HAVE_DECL_TIMERFD_SETTIME") +
+              linux_only("HAVE_EPOLL_CREATE") +
+              linux_only("HAVE_EPOLL_CTL") +
+              linux_only("HAVE_EPOLL_WAIT") +
+              linux_only("HAVE_EVENTFD") +
+              linux_only("HAVE_EVENTFD2") +
               linux_only("HAVE_EXPLICIT_BZERO") +
               linux_only("HAVE_FACCESSAT") +
+              linux_only("HAVE_FANOTIFY_INIT") +
               linux_only("HAVE_GETRANDOM") +
+              linux_only("HAVE_INOTIFY_INIT") +
+              linux_only("HAVE_INOTIFY_INIT1") +
+              linux_only("HAVE_MEMMEM") +
               linux_only("HAVE_MEMPCPY") +
               linux_only("HAVE_OPEN64") +
+              linux_only("HAVE_PIPE2") +
+              linux_only("HAVE_PREAD") +
+              linux_only("HAVE_PREADV") +
+              linux_only("HAVE_PWRITE") +
+              linux_only("HAVE_PWRITEV") +
+              linux_only("HAVE_SENDFILE") +
+              linux_only("HAVE_SENDFILE64") +
+              linux_only("HAVE_SIGNALFD") +
+              linux_only("HAVE_SIGNALFD4") +
+              linux_only("HAVE_SPLICE") +
               linux_only("HAVE_STATIC_ASSERT_IN_ASSERT_H") +
               linux_only("HAVE_STRRCHRNUL") +
+              linux_only("HAVE_TEE") +
+              linux_only("HAVE_TIMERFD_CREATE") +
+              linux_only("HAVE_TIMERFD_SETTIME") +
+              linux_only("HAVE_VMSPLICE") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_CONST") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_DEPRECATED") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR") +
@@ -203,27 +302,46 @@ int main(int argc, char *argv[]) {
               non_msvc("HAVE___INLINE__") +
               non_msvc("HAVE___RESTRICT__") +
               non_osx("HAVE_FTIME") +
+              non_windows("HAVE_ALARM") +
+              non_windows("HAVE_ALIGNED_ALLOC") +
+              non_windows("HAVE_CANONICALIZE_FILE_NAME") +
+              non_windows("HAVE_CHDIR") +
+              non_windows("HAVE_CHMOD") +
+              non_windows("HAVE_CHOWN") +
               non_windows("HAVE_CLOCK_GETTIME") +
+              non_windows("HAVE_CLOSE") +
+              non_windows("HAVE_CLOSEDIR") +
+              non_windows("HAVE_CONFSTR") +
+              non_windows("HAVE_CTIME_R") +
               non_windows("HAVE_DECL_ALARM") +
               non_windows("HAVE_DECL_ALIGNED_ALLOC") +
               non_windows("HAVE_DECL_ASCTIME_R") +
               non_windows("HAVE_DECL_BCOPY") +
               non_windows("HAVE_DECL_BZERO") +
+              non_windows("HAVE_DECL_CANONICALIZE_FILE_NAME") +
+              non_windows("HAVE_DECL_CHDIR") +
+              non_windows("HAVE_DECL_CHMOD") +
+              non_windows("HAVE_DECL_CHOWN") +
               non_windows("HAVE_DECL_CLOCK_GETTIME") +
               non_windows("HAVE_DECL_CLONEFILE") +
+              non_windows("HAVE_DECL_CLOSE") +
               non_windows("HAVE_DECL_CLOSEDIR") +
               non_windows("HAVE_DECL_CONFSTR") +
               non_windows("HAVE_DECL_CRYPT") +
               non_windows("HAVE_DECL_CTIME_R") +
+              non_windows("HAVE_DECL_DIRNAME") +
               non_windows("HAVE_DECL_DLERROR") +
               non_windows("HAVE_DECL_DLOPEN") +
               non_windows("HAVE_DECL_DLSYM") +
+              non_windows("HAVE_DECL_DUP") +
               non_windows("HAVE_DECL_DUP2") +
               non_windows("HAVE_DECL_FCNTL") +
               non_windows("HAVE_DECL_FFS") +
               non_windows("HAVE_DECL_FILENO") +
               non_windows("HAVE_DECL_FORK") +
+              non_windows("HAVE_DECL_FSYNC") +
               non_windows("HAVE_DECL_FTIME") +
+              non_windows("HAVE_DECL_FTRUNCATE") +
               non_windows("HAVE_DECL_FUTIMENS") +
               non_windows("HAVE_DECL_GETADDRINFO") +
               non_windows("HAVE_DECL_GETCWD") +
@@ -241,9 +359,13 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_DECL_GETPAGESIZE") +
               non_windows("HAVE_DECL_GETPASS") +
               non_windows("HAVE_DECL_GETPID") +
+              non_windows("HAVE_DECL_GETPPID") +
               non_windows("HAVE_DECL_GETRLIMIT") +
               non_windows("HAVE_DECL_GETTIMEOFDAY") +
               non_windows("HAVE_DECL_GLOB") +
+              non_windows("HAVE_DECL_GMTIME_R") +
+              non_windows("HAVE_DECL_IF_INDEXTONAME") +
+              non_windows("HAVE_DECL_IF_NAMETOINDEX") +
               non_windows("HAVE_DECL_INET_NTOA") +
               non_windows("HAVE_DECL_INET_NTOP") +
               non_windows("HAVE_DECL_INET_PTON") +
@@ -253,24 +375,41 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_DECL_LINK") +
               non_windows("HAVE_DECL_LSEEK") +
               non_windows("HAVE_DECL_LUTIMENS") +
+              non_windows("HAVE_DECL_MKDIR") +
               non_windows("HAVE_DECL_MKFIFO") +
+              non_windows("HAVE_DECL_MKNOD") +
               non_windows("HAVE_DECL_MKSTEMP") +
               non_windows("HAVE_DECL_MMAP") +
               non_windows("HAVE_DECL_NANOSLEEP") +
+              non_windows("HAVE_DECL_OPEN") +
               non_windows("HAVE_DECL_OPENDIR") +
+              non_windows("HAVE_DECL_PATHCONF") +
               non_windows("HAVE_DECL_PIPE") +
               non_windows("HAVE_DECL_PIPE2") +
               non_windows("HAVE_DECL_POLL") +
               non_windows("HAVE_DECL_POPEN") +
               non_windows("HAVE_DECL_POSIX_MEMALIGN") +
               non_windows("HAVE_DECL_PREAD") +
+              non_windows("HAVE_DECL_PSELECT") +
               non_windows("HAVE_DECL_PTRACE") +
               non_windows("HAVE_DECL_PWRITE") +
+              non_windows("HAVE_DECL_READ") +
               non_windows("HAVE_DECL_READDIR") +
+              non_windows("HAVE_DECL_READLINK") +
               non_windows("HAVE_DECL_REALLOCARRAY") +
               non_windows("HAVE_DECL_REALPATH") +
+              non_windows("HAVE_DECL_RENAME") +
+              non_windows("HAVE_DECL_RMDIR") +
               non_windows("HAVE_DECL_SELECT") +
+              non_windows("HAVE_DECL_SEM_INIT") +
+              non_windows("HAVE_DECL_SEM_POST") +
+              non_windows("HAVE_DECL_SEM_WAIT") +
               non_windows("HAVE_DECL_SENDFILE") +
+              non_windows("HAVE_DECL_SETENV") +
+              non_windows("HAVE_DECL_SETGID") +
+              non_windows("HAVE_DECL_SETUID") +
+              non_windows("HAVE_DECL_SHM_OPEN") +
+              non_windows("HAVE_DECL_SLEEP") +
               non_windows("HAVE_DECL_SNPRINTF") +
               non_windows("HAVE_DECL_SOCKADDR_LEN") +
               non_windows("HAVE_DECL_SOCKET") +
@@ -278,20 +417,46 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_DECL_STRCASECMP") +
               non_windows("HAVE_DECL_STRCSPN") +
               non_windows("HAVE_DECL_STRFTIME") +
+              non_windows("HAVE_DECL_STRICMP") +
               non_windows("HAVE_DECL_STRMODE") +
               non_windows("HAVE_DECL_STRNCASECMP") +
               non_windows("HAVE_DECL_STRNDUP") +
               non_windows("HAVE_DECL_STRNLEN") +
               non_windows("HAVE_DECL_STRSEP") +
               non_windows("HAVE_DECL_SYMLINK") +
+              non_windows("HAVE_DECL_SYNC") +
               non_windows("HAVE_DECL_SYSCONF") +
               non_windows("HAVE_DECL_UNLINK") +
+              non_windows("HAVE_DECL_WRITE") +
+              non_windows("HAVE_DIRNAME") +
               non_windows("HAVE_DLOPEN") +
+              non_windows("HAVE_DUP") +
+              non_windows("HAVE_DUP2") +
+              non_windows("HAVE_EXECVE") +
+              non_windows("HAVE_EXECVP") +
+              non_windows("HAVE_FCNTL") +
+              non_windows("HAVE_FFS") +
+              non_windows("HAVE_FORK") +
               non_windows("HAVE_FSEEKO") +
+              non_windows("HAVE_FSYNC") +
               non_windows("HAVE_FTRUNCATE") +
+              non_windows("HAVE_FUTIMENS") +
+              non_windows("HAVE_GETADDRINFO") +
+              non_windows("HAVE_GETCWD") +
+              non_windows("HAVE_GETDELIM") +
+              non_windows("HAVE_GETEGID") +
               non_windows("HAVE_GETENTROPY") +
+              non_windows("HAVE_GETEUID") +
               non_windows("HAVE_GETGID") +
+              non_windows("HAVE_GETGRGID") +
+              non_windows("HAVE_GETHOSTNAME") +
+              non_windows("HAVE_GETLINE") +
+              non_windows("HAVE_GETLOGIN") +
+              non_windows("HAVE_GETLOGIN_R") +
+              non_windows("HAVE_GETNAMEINFO") +
               non_windows("HAVE_GETPAGESIZE") +
+              non_windows("HAVE_GETPID") +
+              non_windows("HAVE_GETPPID") +
               non_windows("HAVE_GETRLIMIT") +
               non_windows("HAVE_GETTIMEOFDAY") +
               non_windows("HAVE_GETUID") +
@@ -299,25 +464,67 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_HTOLE16") +
               non_windows("HAVE_HTOLE32") +
               non_windows("HAVE_HTOLE64") +
+              non_windows("HAVE_IF_INDEXTONAME") +
+              non_windows("HAVE_IF_NAMETOINDEX") +
+              non_windows("HAVE_INET_NTOP") +
+              non_windows("HAVE_INET_PTON") +
               non_windows("HAVE_ISASCII") +
+              non_windows("HAVE_KILL") +
               non_windows("HAVE_LIBPTHREAD") +
+              non_windows("HAVE_LINK") +
               non_windows("HAVE_LOCALTIME_R") +
+              non_windows("HAVE_LSEEK") +
+              non_windows("HAVE_LUTIMENS") +
               non_windows("HAVE_MAX_ALIGN_T") +
+              non_windows("HAVE_MKDIR") +
+              non_windows("HAVE_MKFIFO") +
+              non_windows("HAVE_MKNOD") +
+              non_windows("HAVE_MKSTEMP") +
               non_windows("HAVE_MMAP") +
+              non_windows("HAVE_OPEN") +
+              non_windows("HAVE_OPENDIR") +
               non_windows("HAVE_PATHCONF") +
+              non_windows("HAVE_PIPE") +
+              non_windows("HAVE_POLL") +
+              non_windows("HAVE_POSIX_MEMALIGN") +
+              non_windows("HAVE_PSELECT") +
+              non_windows("HAVE_READ") +
+              non_windows("HAVE_READDIR") +
+              non_windows("HAVE_READLINK") +
+              non_windows("HAVE_REALLOCARRAY") +
               non_windows("HAVE_REALPATH") +
+              non_windows("HAVE_RENAME") +
+              non_windows("HAVE_RMDIR") +
+              non_windows("HAVE_SELECT") +
+              non_windows("HAVE_SEM_INIT") +
+              non_windows("HAVE_SEM_POST") +
+              non_windows("HAVE_SEM_WAIT") +
               non_windows("HAVE_SENDMSG") +
+              non_windows("HAVE_SETENV") +
+              non_windows("HAVE_SETGID") +
+              non_windows("HAVE_SETUID") +
+              non_windows("HAVE_SHM_OPEN") +
+              non_windows("HAVE_SIGACTION") +
+              non_windows("HAVE_SLEEP") +
+              non_windows("HAVE_SOCKET") +
               non_windows("HAVE_STAT") +
               non_windows("HAVE_STRCASECMP") +
+              non_windows("HAVE_STRCSPN") +
+              non_windows("HAVE_STRICMP") +
+              non_windows("HAVE_STRMODE") +
               non_windows("HAVE_STRNCASECMP") +
+              non_windows("HAVE_STRNDUP") +
               non_windows("HAVE_STRNLEN") +
               non_windows("HAVE_STRSEP") +
               non_windows("HAVE_STRUCT_STAT") +
               non_windows("HAVE_STRXFRM_L") +
+              non_windows("HAVE_SYMLINK") +
+              non_windows("HAVE_SYNC") +
               non_windows("HAVE_SYSCALL") +
               non_windows("HAVE_SYSCONF") +
               non_windows("HAVE_SYS_CDEFS_BEGIN_END_DECLS") +
               non_windows("HAVE_S_ISREG") +
+              non_windows("HAVE_TRUNCATE") +
               non_windows("HAVE_TYPE_BLKCNT_T") +
               non_windows("HAVE_TYPE_BLKSIZE_T") +
               non_windows("HAVE_TYPE_DEV_T") +
@@ -327,14 +534,47 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_TYPE_SOCKLEN_T") +
               non_windows("HAVE_TYPE_SSIZE_T") +
               non_windows("HAVE_TYPE_UID_T") +
+              non_windows("HAVE_UNLINK") +
+              non_windows("HAVE_WRITE") +
               non_windows("HAVE__STATIC_ASSERT") +
+              osx_only("HAVE_ARC4RANDOM") +
+              osx_only("HAVE_CLONEFILE") +
+              osx_only("HAVE_DECL_CLONEFILE") +
               osx_only("HAVE_DECL_FCOPYFILE") +
+              osx_only("HAVE_DECL_GETENTROPY") +
+              osx_only("HAVE_DECL_GETPEEREID") +
+              osx_only("HAVE_DECL_ISSETUGID") +
               osx_only("HAVE_DECL_STRLCAT") +
               osx_only("HAVE_DECL_STRLCPY") +
+              osx_only("HAVE_DRAND48") +
+              osx_only("HAVE_FCOPYFILE") +
+              osx_only("HAVE_GETENTROPY") +
+              osx_only("HAVE_GETPEEREID") +
+              osx_only("HAVE_ISSETUGID") +
+              osx_only("HAVE_RANDOM") +
+              osx_only("HAVE_SRANDOM") +
+              osx_only("HAVE_STRLCAT") +
               osx_only("HAVE_STRLCPY") +
+              windows_only("HAVE_DECL__CLOSE") +
+              windows_only("HAVE_DECL__OPEN") +
+              windows_only("HAVE_DECL__READ") +
               windows_only("HAVE_DECL__SNPRINTF") +
               windows_only("HAVE_DECL__STRERROR") +
+              windows_only("HAVE_DECL__STRICMP") +
+              windows_only("HAVE_DECL__STRNICMP") +
+              windows_only("HAVE_DECL__VSNPRINTF") +
+              windows_only("HAVE_DECL__WRITE") +
+              windows_only("HAVE__CLOSE") +
+              windows_only("HAVE__MKDIR") +
+              windows_only("HAVE__OPEN") +
+              windows_only("HAVE__READ") +
+              windows_only("HAVE__RMDIR") +
+              windows_only("HAVE__SNPRINTF") +
               windows_only("HAVE__STAT") +
+              windows_only("HAVE__STRICMP") +
+              windows_only("HAVE__STRNICMP") +
+              windows_only("HAVE__VSNPRINTF") +
+              windows_only("HAVE__WRITE") +
               # Non-standard ones, do we actually want to include these to maximize compatibility?
               linux_only("HAVE_ABSTRACT_SOCKETS") +
               linux_only("HAVE_SYMVER") +
