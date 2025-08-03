@@ -87,7 +87,7 @@ HEADERS = {
     "HAVE_SYS_XATTR_H": "sys/xattr.h",
     "HAVE_TERMIOS_H": "termios.h",
     "HAVE_THREADS_H": "threads.h",
-    "HAVE_TIME_H": "time.h"
+    "HAVE_TIME_H": "time.h",
     "HAVE_UCHAR_H": "uchar.h",
     "HAVE_UCONTEXT_H": "ucontext.h",
     "HAVE_UNISTD_H": "unistd.h",
@@ -120,17 +120,59 @@ int main(int argc, char *argv[]) {
                   )
                   for define, header in HEADERS.items()
               ] + ['   fprintf(f, "\\n");'] +
+              define("HAVE_DECL_BASENAME") +
+              define("HAVE_DECL_CALLOC") +
+              define("HAVE_DECL_FREE") +
+              define("HAVE_DECL_MALLOC") +
+              define("HAVE_DECL_MEMCPY") +
+              define("HAVE_DECL_MEMMOVE") +
+              define("HAVE_DECL_MEMSET") +
+              define("HAVE_DECL_PUTENV") +
+              define("HAVE_DECL_QSORT") +
+              define("HAVE_DECL_RAND") +
+              define("HAVE_DECL_REALLOC") +
+              define("HAVE_DECL_SIGNAL") +
+              define("HAVE_DECL_SNPRINTF") +
+              define("HAVE_DECL_STRCHR") +
+              define("HAVE_DECL_STRCMP") +
+              define("HAVE_DECL_STRERROR") +
+              define("HAVE_DECL_STRLEN") +
+              define("HAVE_DECL_STRNCMP") +
+              define("HAVE_DECL_STRSTR") +
+              define("HAVE_DECL_TIME") +
+              define("HAVE_DECL_VSNPRINTF") +
               define("HAVE_FILENO") +
               define("HAVE_FSTAT") +
               define("HAVE_GETADDRINFO") +
               define("HAVE_ISCNTRL") +
               define("HAVE_SNPRINTF") +
+              define("HAVE_TYPE_INT16_T") +
+              define("HAVE_TYPE_INT32_T") +
+              define("HAVE_TYPE_INT64_T") +
+              define("HAVE_TYPE_INT8_T") +
+              define("HAVE_TYPE_INTPTR_T") +
+              define("HAVE_TYPE_MODE_T") +
+              define("HAVE_TYPE_OFF_T") +
+              define("HAVE_TYPE_SIZE_T") +
+              define("HAVE_TYPE_TIME_T") +
+              define("HAVE_TYPE_UINT16_T") +
+              define("HAVE_TYPE_UINT32_T") +
+              define("HAVE_TYPE_UINT64_T") +
+              define("HAVE_TYPE_UINT8_T") +
+              define("HAVE_TYPE_UINTPTR_T") +
               define("HAVE_UINTPTR_T") +
               define("HAVE_VSNPRINTF") +
               define("HAVE___INLINE") +
               define("HAVE___RESTRICT") +
               define("STDC_HEADERS") +
+              linux_only("HAVE_DECL_EVENTFD") +
+              linux_only("HAVE_DECL_GETRANDOM") +
+              linux_only("HAVE_DECL_INOTIFY_INIT") +
+              linux_only("HAVE_DECL_MEMMEM") +
+              linux_only("HAVE_DECL_SENDFILE64") +
               linux_only("HAVE_DECL_STRRCHRNUL") +
+              linux_only("HAVE_DECL_TIMERFD_CREATE") +
+              linux_only("HAVE_DECL_TIMERFD_SETTIME") +
               linux_only("HAVE_EXPLICIT_BZERO") +
               linux_only("HAVE_FACCESSAT") +
               linux_only("HAVE_GETRANDOM") +
@@ -138,37 +180,112 @@ int main(int argc, char *argv[]) {
               linux_only("HAVE_OPEN64") +
               linux_only("HAVE_STATIC_ASSERT_IN_ASSERT_H") +
               linux_only("HAVE_STRRCHRNUL") +
-              non_msvc("HAVE_GNU_INLINE") +
-              non_msvc("HAVE_INLINE") +
-              non_msvc("HAVE___INLINE__") +
-              non_msvc("HAVE_RESTRICT") +
-              non_msvc("HAVE___RESTRICT__") +
-              non_msvc("HAVE_VARIADIC_MACROS") +
-              non_msvc("HAVE_TYPEOF") +
-              non_msvc("HAVE__BOOL") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_CONST") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_DEPRECATED") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_FORMAT") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_MALLOC") +
-              non_msvc("HAVE_FUNC_ATTRIBUTE_NORETURN") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_NONNULL") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_NORETURN") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_PACKED") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_PURE") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_SENTINEL") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_SYMVER") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_UNUSED") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_VISIBILITY") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_WARN_UNUSED_RESULT") +
-              non_msvc("HAVE_FUNC_ATTRIBUTE_SYMVER") +
+              non_msvc("HAVE_GNU_INLINE") +
+              non_msvc("HAVE_INLINE") +
+              non_msvc("HAVE_RESTRICT") +
+              non_msvc("HAVE_TYPEOF") +
+              non_msvc("HAVE_VARIADIC_MACROS") +
+              non_msvc("HAVE__BOOL") +
+              non_msvc("HAVE___INLINE__") +
+              non_msvc("HAVE___RESTRICT__") +
               non_osx("HAVE_FTIME") +
               non_windows("HAVE_CLOCK_GETTIME") +
+              non_windows("HAVE_DECL_ALARM") +
+              non_windows("HAVE_DECL_ALIGNED_ALLOC") +
+              non_windows("HAVE_DECL_ASCTIME_R") +
+              non_windows("HAVE_DECL_BCOPY") +
+              non_windows("HAVE_DECL_BZERO") +
+              non_windows("HAVE_DECL_CLOCK_GETTIME") +
+              non_windows("HAVE_DECL_CLONEFILE") +
+              non_windows("HAVE_DECL_CLOSEDIR") +
+              non_windows("HAVE_DECL_CONFSTR") +
+              non_windows("HAVE_DECL_CRYPT") +
+              non_windows("HAVE_DECL_CTIME_R") +
+              non_windows("HAVE_DECL_DLERROR") +
+              non_windows("HAVE_DECL_DLOPEN") +
+              non_windows("HAVE_DECL_DLSYM") +
+              non_windows("HAVE_DECL_DUP2") +
+              non_windows("HAVE_DECL_FCNTL") +
+              non_windows("HAVE_DECL_FFS") +
+              non_windows("HAVE_DECL_FILENO") +
+              non_windows("HAVE_DECL_FORK") +
+              non_windows("HAVE_DECL_FTIME") +
+              non_windows("HAVE_DECL_FUTIMENS") +
+              non_windows("HAVE_DECL_GETADDRINFO") +
+              non_windows("HAVE_DECL_GETCWD") +
+              non_windows("HAVE_DECL_GETDELIM") +
+              non_windows("HAVE_DECL_GETEGID") +
               non_windows("HAVE_DECL_GETENTROPY") +
+              non_windows("HAVE_DECL_GETEUID") +
+              non_windows("HAVE_DECL_GETGID") +
+              non_windows("HAVE_DECL_GETGRGID") +
+              non_windows("HAVE_DECL_GETHOSTNAME") +
+              non_windows("HAVE_DECL_GETLINE") +
+              non_windows("HAVE_DECL_GETLOGIN") +
+              non_windows("HAVE_DECL_GETLOGIN_R") +
+              non_windows("HAVE_DECL_GETNAMEINFO") +
+              non_windows("HAVE_DECL_GETPAGESIZE") +
+              non_windows("HAVE_DECL_GETPASS") +
+              non_windows("HAVE_DECL_GETPID") +
+              non_windows("HAVE_DECL_GETRLIMIT") +
+              non_windows("HAVE_DECL_GETTIMEOFDAY") +
               non_windows("HAVE_DECL_GLOB") +
+              non_windows("HAVE_DECL_INET_NTOA") +
+              non_windows("HAVE_DECL_INET_NTOP") +
+              non_windows("HAVE_DECL_INET_PTON") +
+              non_windows("HAVE_DECL_ISATTY") +
+              non_windows("HAVE_DECL_ISSETUGID") +
+              non_windows("HAVE_DECL_KILL") +
+              non_windows("HAVE_DECL_LINK") +
+              non_windows("HAVE_DECL_LSEEK") +
+              non_windows("HAVE_DECL_LUTIMENS") +
+              non_windows("HAVE_DECL_MKFIFO") +
+              non_windows("HAVE_DECL_MKSTEMP") +
               non_windows("HAVE_DECL_MMAP") +
+              non_windows("HAVE_DECL_NANOSLEEP") +
+              non_windows("HAVE_DECL_OPENDIR") +
+              non_windows("HAVE_DECL_PIPE") +
+              non_windows("HAVE_DECL_PIPE2") +
+              non_windows("HAVE_DECL_POLL") +
+              non_windows("HAVE_DECL_POPEN") +
+              non_windows("HAVE_DECL_POSIX_MEMALIGN") +
+              non_windows("HAVE_DECL_PREAD") +
+              non_windows("HAVE_DECL_PTRACE") +
+              non_windows("HAVE_DECL_PWRITE") +
+              non_windows("HAVE_DECL_READDIR") +
+              non_windows("HAVE_DECL_REALLOCARRAY") +
+              non_windows("HAVE_DECL_REALPATH") +
+              non_windows("HAVE_DECL_SELECT") +
+              non_windows("HAVE_DECL_SENDFILE") +
+              non_windows("HAVE_DECL_SNPRINTF") +
+              non_windows("HAVE_DECL_SOCKADDR_LEN") +
+              non_windows("HAVE_DECL_SOCKET") +
+              non_windows("HAVE_DECL_STAT") +
               non_windows("HAVE_DECL_STRCASECMP") +
+              non_windows("HAVE_DECL_STRCSPN") +
+              non_windows("HAVE_DECL_STRFTIME") +
+              non_windows("HAVE_DECL_STRMODE") +
               non_windows("HAVE_DECL_STRNCASECMP") +
+              non_windows("HAVE_DECL_STRNDUP") +
               non_windows("HAVE_DECL_STRNLEN") +
               non_windows("HAVE_DECL_STRSEP") +
+              non_windows("HAVE_DECL_SYMLINK") +
+              non_windows("HAVE_DECL_SYSCONF") +
+              non_windows("HAVE_DECL_UNLINK") +
               non_windows("HAVE_DLOPEN") +
               non_windows("HAVE_FSEEKO") +
               non_windows("HAVE_FTRUNCATE") +
@@ -201,9 +318,22 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_SYSCONF") +
               non_windows("HAVE_SYS_CDEFS_BEGIN_END_DECLS") +
               non_windows("HAVE_S_ISREG") +
+              non_windows("HAVE_TYPE_BLKCNT_T") +
+              non_windows("HAVE_TYPE_BLKSIZE_T") +
+              non_windows("HAVE_TYPE_DEV_T") +
+              non_windows("HAVE_TYPE_GID_T") +
+              non_windows("HAVE_TYPE_NLINK_T") +
+              non_windows("HAVE_TYPE_PID_T") +
+              non_windows("HAVE_TYPE_SOCKLEN_T") +
+              non_windows("HAVE_TYPE_SSIZE_T") +
+              non_windows("HAVE_TYPE_UID_T") +
               non_windows("HAVE__STATIC_ASSERT") +
+              osx_only("HAVE_DECL_FCOPYFILE") +
+              osx_only("HAVE_DECL_STRLCAT") +
               osx_only("HAVE_DECL_STRLCPY") +
               osx_only("HAVE_STRLCPY") +
+              windows_only("HAVE_DECL__SNPRINTF") +
+              windows_only("HAVE_DECL__STRERROR") +
               windows_only("HAVE__STAT") +
               # Non-standard ones, do we actually want to include these to maximize compatibility?
               linux_only("HAVE_ABSTRACT_SOCKETS") +
