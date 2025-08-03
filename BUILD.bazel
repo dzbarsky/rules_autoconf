@@ -68,6 +68,7 @@ HEADERS = {
     "HAVE_SYS_MMAN_H": "sys/mman.h",
     "HAVE_SYS_MOUNT_H": "sys/mount.h",
     "HAVE_SYS_PARAM_H": "sys/param.h",
+    "HAVE_SYS_POLL_H": "sys/poll.h",
     "HAVE_SYS_PRCTL_H": "sys/prctl.h",
     "HAVE_SYS_RANDOM_H": "sys/random.h",
     "HAVE_SYS_RESOURCE_H": "sys/resource.h",
@@ -83,6 +84,7 @@ HEADERS = {
     "HAVE_SYS_UIO_H": "sys/uio.h",
     "HAVE_SYS_UN_H": "sys/un.h",
     "HAVE_SYS_UTSNAME_H": "sys/utsname.h",
+    "HAVE_SYS_VFS_H": "sys/vfs.h",
     "HAVE_SYS_WAIT_H": "sys/wait.h",
     "HAVE_SYS_XATTR_H": "sys/xattr.h",
     "HAVE_TERMIOS_H": "termios.h",
@@ -91,7 +93,9 @@ HEADERS = {
     "HAVE_UCHAR_H": "uchar.h",
     "HAVE_UCONTEXT_H": "ucontext.h",
     "HAVE_UNISTD_H": "unistd.h",
+    "HAVE_UTIME_H": "utime.h",
     "HAVE_WCHAR_H": "wchar.h",
+    "HAVE_WCTYPE_H": "wctype.h",
     "HAVE_XLOCALE_H": "xlocale.h",
 }
 
@@ -142,6 +146,12 @@ int main(int argc, char *argv[]) {
               define("HAVE_DECL_FLOOR") +
               define("HAVE_DECL_FREE") +
               define("HAVE_DECL_GETENV") +
+              define("HAVE_DECL_INT32_MAX") +
+              define("HAVE_DECL_INT32_MIN") +
+              define("HAVE_DECL_INT64_MAX") +
+              define("HAVE_DECL_INT64_MIN") +
+              define("HAVE_DECL_INTMAX_MAX") +
+              define("HAVE_DECL_INTMAX_MIN") +
               define("HAVE_DECL_LABS") +
               define("HAVE_DECL_MALLOC") +
               define("HAVE_DECL_MEMCMP") +
@@ -154,6 +164,7 @@ int main(int argc, char *argv[]) {
               define("HAVE_DECL_REALLOC") +
               define("HAVE_DECL_SIGNAL") +
               define("HAVE_DECL_SIN") +
+              define("HAVE_DECL_SIZE_MAX") +
               define("HAVE_DECL_SNPRINTF") +
               define("HAVE_DECL_SQRT") +
               define("HAVE_DECL_SRAND") +
@@ -168,6 +179,9 @@ int main(int argc, char *argv[]) {
               define("HAVE_DECL_STRTOL") +
               define("HAVE_DECL_STRTOUL") +
               define("HAVE_DECL_TIME") +
+              define("HAVE_DECL_UINT32_MAX") +
+              define("HAVE_DECL_UINT64_MAX") +
+              define("HAVE_DECL_UINTMAX_MAX") +
               define("HAVE_DECL_VSNPRINTF") +
               define("HAVE_EXIT") +
               define("HAVE_FABS") +
@@ -178,11 +192,15 @@ int main(int argc, char *argv[]) {
               define("HAVE_FSTAT") +
               define("HAVE_GETADDRINFO") +
               define("HAVE_GETENV") +
+              define("HAVE_GETPID") +
+              define("HAVE_INTMAX_T") +
               define("HAVE_ISCNTRL") +
               define("HAVE_LABS") +
               define("HAVE_LLABS") +
               define("HAVE_LOCALTIME") +
+              define("HAVE_LONG_LONG_INT") +
               define("HAVE_MALLOC") +
+              define("HAVE_MBRTOWC") +
               define("HAVE_MEMCMP") +
               define("HAVE_MEMCPY") +
               define("HAVE_MEMMOVE") +
@@ -191,40 +209,40 @@ int main(int argc, char *argv[]) {
               define("HAVE_QSORT") +
               define("HAVE_RAND") +
               define("HAVE_REALLOC") +
+              define("HAVE_SETLOCALE") +
               define("HAVE_SIN") +
               define("HAVE_SNPRINTF") +
               define("HAVE_SPRINTF") +
               define("HAVE_SQRT") +
               define("HAVE_SRAND") +
+              define("HAVE_STRCHR") +
+              define("HAVE_STRERROR") +
+              define("HAVE_STRFTIME") +
+              define("HAVE_STRRCHR") +
               define("HAVE_STRTOD") +
               define("HAVE_STRTOF") +
               define("HAVE_STRTOL") +
-              define("HAVE_STRTOOLD") +
               define("HAVE_STRTOUL") +
               define("HAVE_TIME") +
+              define("HAVE_TIMEGM") +
               define("HAVE_TMPFILE") +
               define("HAVE_TMPNAM") +
-              define("HAVE_TYPE_INT16_T") +
-              define("HAVE_TYPE_INT32_T") +
-              define("HAVE_TYPE_INT64_T") +
-              define("HAVE_TYPE_INT8_T") +
-              define("HAVE_TYPE_INTPTR_T") +
-              define("HAVE_TYPE_MODE_T") +
-              define("HAVE_TYPE_OFF_T") +
-              define("HAVE_TYPE_SIZE_T") +
-              define("HAVE_TYPE_TIME_T") +
-              define("HAVE_TYPE_UINT16_T") +
-              define("HAVE_TYPE_UINT32_T") +
-              define("HAVE_TYPE_UINT64_T") +
-              define("HAVE_TYPE_UINT8_T") +
-              define("HAVE_TYPE_UINTPTR_T") +
+              define("HAVE_TZSET") +
+              define("HAVE_UINTMAX_T") +
               define("HAVE_UINTPTR_T") +
+              define("HAVE_UNSIGNED_LONG_LONG_INT") +
+              define("HAVE_UTIME") +
               define("HAVE_VFPRINTF") +
               define("HAVE_VPRINTF") +
               define("HAVE_VSNPRINTF") +
               define("HAVE_VSPRINTF") +
-              define("HAVE___INLINE") +
-              define("HAVE___RESTRICT") +
+              define("HAVE_WCRTOMB") +
+              define("HAVE_WCSCMP") +
+              define("HAVE_WCSCPY") +
+              define("HAVE_WCSLEN") +
+              define("HAVE_WCTOMB") +
+              define("HAVE_WMEMCMP") +
+              define("HAVE_WMEMCPY") +
               define("STDC_HEADERS") +
               linux_only("HAVE_DECL_EPOLL_CREATE") +
               linux_only("HAVE_DECL_EPOLL_CTL") +
@@ -257,17 +275,30 @@ int main(int argc, char *argv[]) {
               linux_only("HAVE_EXPLICIT_BZERO") +
               linux_only("HAVE_FACCESSAT") +
               linux_only("HAVE_FANOTIFY_INIT") +
+              linux_only("HAVE_FGETXATTR") +
+              linux_only("HAVE_FLISTXATTR") +
+              linux_only("HAVE_FSETXATTR") +
+              linux_only("HAVE_FSTATAT") +
+              linux_only("HAVE_FSTATFS") +
+              linux_only("HAVE_FSTATVFS") +
               linux_only("HAVE_GETRANDOM") +
+              linux_only("HAVE_GETXATTR") +
               linux_only("HAVE_INOTIFY_INIT") +
               linux_only("HAVE_INOTIFY_INIT1") +
+              linux_only("HAVE_LGETXATTR") +
+              linux_only("HAVE_LISTXATTR") +
+              linux_only("HAVE_LLISTXATTR") +
+              linux_only("HAVE_LSETXATTR") +
               linux_only("HAVE_MEMMEM") +
               linux_only("HAVE_MEMPCPY") +
               linux_only("HAVE_OPEN64") +
+              linux_only("HAVE_OPENAT") +
               linux_only("HAVE_PIPE2") +
               linux_only("HAVE_PREAD") +
               linux_only("HAVE_PREADV") +
               linux_only("HAVE_PWRITE") +
               linux_only("HAVE_PWRITEV") +
+              linux_only("HAVE_READLINKAT") +
               linux_only("HAVE_SENDFILE") +
               linux_only("HAVE_SENDFILE64") +
               linux_only("HAVE_SIGNALFD") +
@@ -278,6 +309,7 @@ int main(int argc, char *argv[]) {
               linux_only("HAVE_TEE") +
               linux_only("HAVE_TIMERFD_CREATE") +
               linux_only("HAVE_TIMERFD_SETTIME") +
+              linux_only("HAVE_UTIMENSAT") +
               linux_only("HAVE_VMSPLICE") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_CONST") +
               non_msvc("HAVE_FUNC_ATTRIBUTE_DEPRECATED") +
@@ -308,6 +340,7 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_CHDIR") +
               non_windows("HAVE_CHMOD") +
               non_windows("HAVE_CHOWN") +
+              non_windows("HAVE_CHROOT") +
               non_windows("HAVE_CLOCK_GETTIME") +
               non_windows("HAVE_CLOSE") +
               non_windows("HAVE_CLOSEDIR") +
@@ -413,6 +446,7 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_DECL_SNPRINTF") +
               non_windows("HAVE_DECL_SOCKADDR_LEN") +
               non_windows("HAVE_DECL_SOCKET") +
+              non_windows("HAVE_DECL_SSIZE_MAX") +
               non_windows("HAVE_DECL_STAT") +
               non_windows("HAVE_DECL_STRCASECMP") +
               non_windows("HAVE_DECL_STRCSPN") +
@@ -428,19 +462,26 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_DECL_SYSCONF") +
               non_windows("HAVE_DECL_UNLINK") +
               non_windows("HAVE_DECL_WRITE") +
+              non_windows("HAVE_DIRFD") +
               non_windows("HAVE_DIRNAME") +
               non_windows("HAVE_DLOPEN") +
               non_windows("HAVE_DUP") +
               non_windows("HAVE_DUP2") +
               non_windows("HAVE_EXECVE") +
               non_windows("HAVE_EXECVP") +
+              non_windows("HAVE_FCHDIR") +
+              non_windows("HAVE_FCHMOD") +
+              non_windows("HAVE_FCHOWN") +
               non_windows("HAVE_FCNTL") +
+              non_windows("HAVE_FDOPENDIR") +
               non_windows("HAVE_FFS") +
               non_windows("HAVE_FORK") +
               non_windows("HAVE_FSEEKO") +
+              non_windows("HAVE_FSTAT") +
               non_windows("HAVE_FSYNC") +
               non_windows("HAVE_FTRUNCATE") +
               non_windows("HAVE_FUTIMENS") +
+              non_windows("HAVE_FUTIMES") +
               non_windows("HAVE_GETADDRINFO") +
               non_windows("HAVE_GETCWD") +
               non_windows("HAVE_GETDELIM") +
@@ -449,6 +490,8 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_GETEUID") +
               non_windows("HAVE_GETGID") +
               non_windows("HAVE_GETGRGID") +
+              non_windows("HAVE_GETGRGID_R") +
+              non_windows("HAVE_GETGRNAM_R") +
               non_windows("HAVE_GETHOSTNAME") +
               non_windows("HAVE_GETLINE") +
               non_windows("HAVE_GETLOGIN") +
@@ -457,6 +500,8 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_GETPAGESIZE") +
               non_windows("HAVE_GETPID") +
               non_windows("HAVE_GETPPID") +
+              non_windows("HAVE_GETPWNAM_R") +
+              non_windows("HAVE_GETPWUID_R") +
               non_windows("HAVE_GETRLIMIT") +
               non_windows("HAVE_GETTIMEOFDAY") +
               non_windows("HAVE_GETUID") +
@@ -470,26 +515,32 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_INET_PTON") +
               non_windows("HAVE_ISASCII") +
               non_windows("HAVE_KILL") +
+              non_windows("HAVE_LCHOWN") +
               non_windows("HAVE_LIBPTHREAD") +
               non_windows("HAVE_LINK") +
               non_windows("HAVE_LOCALTIME_R") +
               non_windows("HAVE_LSEEK") +
+              non_windows("HAVE_LSTAT") +
               non_windows("HAVE_LUTIMENS") +
+              non_windows("HAVE_LUTIMES") +
               non_windows("HAVE_MAX_ALIGN_T") +
               non_windows("HAVE_MKDIR") +
               non_windows("HAVE_MKFIFO") +
               non_windows("HAVE_MKNOD") +
               non_windows("HAVE_MKSTEMP") +
               non_windows("HAVE_MMAP") +
+              non_windows("HAVE_NL_LANGINFO") +
               non_windows("HAVE_OPEN") +
               non_windows("HAVE_OPENDIR") +
               non_windows("HAVE_PATHCONF") +
               non_windows("HAVE_PIPE") +
               non_windows("HAVE_POLL") +
               non_windows("HAVE_POSIX_MEMALIGN") +
+              non_windows("HAVE_POSIX_SPAWNP") +
               non_windows("HAVE_PSELECT") +
               non_windows("HAVE_READ") +
               non_windows("HAVE_READDIR") +
+              non_windows("HAVE_READDIR_R") +
               non_windows("HAVE_READLINK") +
               non_windows("HAVE_REALLOCARRAY") +
               non_windows("HAVE_REALPATH") +
@@ -508,8 +559,11 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_SLEEP") +
               non_windows("HAVE_SOCKET") +
               non_windows("HAVE_STAT") +
+              non_windows("HAVE_STATFS") +
               non_windows("HAVE_STRCASECMP") +
               non_windows("HAVE_STRCSPN") +
+              non_windows("HAVE_STRDUP") +
+              non_windows("HAVE_STRERROR_R") +
               non_windows("HAVE_STRICMP") +
               non_windows("HAVE_STRMODE") +
               non_windows("HAVE_STRNCASECMP") +
@@ -517,6 +571,8 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_STRNLEN") +
               non_windows("HAVE_STRSEP") +
               non_windows("HAVE_STRUCT_STAT") +
+              non_windows("HAVE_STRUCT_STAT_ST_BLKSIZE") +
+              non_windows("HAVE_STRUCT_TM_TM_GMTOFF") +
               non_windows("HAVE_STRXFRM_L") +
               non_windows("HAVE_SYMLINK") +
               non_windows("HAVE_SYNC") +
@@ -535,8 +591,12 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_TYPE_SSIZE_T") +
               non_windows("HAVE_TYPE_UID_T") +
               non_windows("HAVE_UNLINK") +
+              non_windows("HAVE_UNSETENV") +
+              non_windows("HAVE_UTIMES") +
+              non_windows("HAVE_VFORK") +
               non_windows("HAVE_WRITE") +
               non_windows("HAVE__STATIC_ASSERT") +
+              non_windows("STRERROR_R_CHAR_P") +
               osx_only("HAVE_ARC4RANDOM") +
               osx_only("HAVE_CLONEFILE") +
               osx_only("HAVE_DECL_CLONEFILE") +
@@ -576,6 +636,7 @@ int main(int argc, char *argv[]) {
               windows_only("HAVE__VSNPRINTF") +
               windows_only("HAVE__WRITE") +
               # Non-standard ones, do we actually want to include these to maximize compatibility?
+              define("HAVE_UNSIGNED_LONG_LONG") +
               linux_only("HAVE_ABSTRACT_SOCKETS") +
               linux_only("HAVE_SYMVER") +
               linux_only("HAVE_SYS_CDEFS_THROW") + [
