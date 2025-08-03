@@ -19,6 +19,12 @@ def linux_only(name):
         "//conditions:default": [],
     })
 
+def osx_only(name):
+    return select({
+        "@platforms//os:osx": define(name),
+        "//conditions:default": [],
+    })
+
 def non_osx(name):
     return select({
         "@platforms//os:osx": [],

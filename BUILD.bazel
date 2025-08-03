@@ -1,41 +1,94 @@
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
-load("//:defs.bzl", "define", "linux_only", "non_osx", "non_windows", "windows_only")
+load("//:defs.bzl", "define", "linux_only", "non_osx", "non_windows", "osx_only", "windows_only")
 
 HEADERS = {
+    "HAVE_ARPA_INET_H": "arpa/inet.h",
+    "HAVE_ASSERT_H": "assert.h",
     "HAVE_ATTR_XATTR_H": "attr/xattr.h",
+    "HAVE_BYTESWAP_H": "byteswap.h",
+    "HAVE_COMPLEX_H": "complex.h",
+    "HAVE_CTYPE_H": "ctype.h",
+    "HAVE_DIRENT_H": "dirent.h",
     "HAVE_DLFCN_H": "dlfcn.h",
     "HAVE_ENDIAN_H": "endian.h",
     "HAVE_ERRNO_H": "errno.h",
+    "HAVE_EXECINFO_H": "execinfo.h",
     "HAVE_FCNTL_H": "fcntl.h",
+    "HAVE_FENV_H": "fenv.h",
+    "HAVE_FLOAT_H": "float.h",
+    "HAVE_FNMATCH_H": "fnmatch.h",
+    "HAVE_GLOB_H": "glob.h",
     "HAVE_GRP_H": "grp.h",
-    "HAVE_IO_H": "io.h",
+    "HAVE_ICONV_H": "iconv.h",
+    "HAVE_IFADDRS_H": "ifaddrs.h",
+    "HAVE_INTRIN_H": "intrin.h",
     "HAVE_INTTYPES_H": "inttypes.h",
-    "HAVE_LOCALE_H": "locale.h",
+    "HAVE_IO_H": "io.h",
+    "HAVE_LANGINFO_H": "langinfo.h",
     "HAVE_LIMITS_H": "limits.h",
     "HAVE_LINUX_FS_H": "linux/fs.h",
+    "HAVE_LOCALE_H": "locale.h",
+    "HAVE_MATH_H": "math.h",
+    "HAVE_MEMORY_H": "memory.h",
+    "HAVE_NETDB_H": "netdb.h",
+    "HAVE_NETINET_IN_H": "netinet/in.h",
+    "HAVE_NETINET_TCP_H": "netinet/tcp.h",
     "HAVE_PATHS_H": "paths.h",
     "HAVE_POLL_H": "poll.h",
     "HAVE_PTHREAD_H": "pthread.h",
+    "HAVE_PTY_H": "pty.h",
     "HAVE_PWD_H": "pwd.h",
+    "HAVE_REGEX_H": "regex.h",
+    "HAVE_RESOLV_H": "resolv.h",
+    "HAVE_SEMAPHORE_H": "semaphore.h",
+    "HAVE_SETJMP_H": "setjmp.h",
+    "HAVE_SIGNAL_H": "signal.h",
+    "HAVE_SPAWN_H": "spawn.h",
+    "HAVE_STDALIGN_H": "stdalign.h",
+    "HAVE_STDARG_H": "stdarg.h",
+    "HAVE_STDATOMIC_H": "stdatomic.h",
     "HAVE_STDBOOL_H": "stdbool.h",
+    "HAVE_STDDEF_H": "stddef.h",
     "HAVE_STDINT_H": "stdint.h",
     "HAVE_STDIO_H": "stdio.h",
     "HAVE_STDLIB_H": "stdlib.h",
-    "HAVE_STRING_H": "string.h",
+    "HAVE_STDNORETURN_H": "stdnoreturn.h",
     "HAVE_STRINGS_H": "strings.h",
+    "HAVE_STRING_H": "string.h",
+    "HAVE_SYSLOG_H": "syslog.h",
     "HAVE_SYS_CDEFS_H": "sys/cdefs.h",
     "HAVE_SYS_ENDIAN_H": "sys/endian.h",
+    "HAVE_SYS_EPOLL_H": "sys/epoll.h",
+    "HAVE_SYS_EVENTFD_H": "sys/eventfd.h",
+    "HAVE_SYS_FILE_H": "sys/file.h",
+    "HAVE_SYS_INOTIFY_H": "sys/inotify.h",
+    "HAVE_SYS_IOCTL_H": "sys/ioctl.h",
+    "HAVE_SYS_MMAN_H": "sys/mman.h",
+    "HAVE_SYS_MOUNT_H": "sys/mount.h",
     "HAVE_SYS_PARAM_H": "sys/param.h",
+    "HAVE_SYS_PRCTL_H": "sys/prctl.h",
     "HAVE_SYS_RANDOM_H": "sys/random.h",
+    "HAVE_SYS_RESOURCE_H": "sys/resource.h",
     "HAVE_SYS_SELECT_H": "sys/select.h",
+    "HAVE_SYS_SENDFILE_H": "sys/sendfile.h",
+    "HAVE_SYS_SOCKET_H": "sys/socket.h",
+    "HAVE_SYS_STATVFS_H": "sys/statvfs.h",
     "HAVE_SYS_STAT_H": "sys/stat.h",
     "HAVE_SYS_SYSCALL_H": "sys/syscall.h",
     "HAVE_SYS_TIMEB_H": "sys/timeb.h",
     "HAVE_SYS_TIME_H": "sys/time.h",
     "HAVE_SYS_TYPES_H": "sys/types.h",
+    "HAVE_SYS_UIO_H": "sys/uio.h",
+    "HAVE_SYS_UN_H": "sys/un.h",
+    "HAVE_SYS_UTSNAME_H": "sys/utsname.h",
+    "HAVE_SYS_WAIT_H": "sys/wait.h",
     "HAVE_SYS_XATTR_H": "sys/xattr.h",
+    "HAVE_TERMIOS_H": "termios.h",
+    "HAVE_THREADS_H": "threads.h",
+    "HAVE_TIME_H": "time.h"
+    "HAVE_UCHAR_H": "uchar.h",
     "HAVE_UCONTEXT_H": "ucontext.h",
     "HAVE_UNISTD_H": "unistd.h",
     "HAVE_WCHAR_H": "wchar.h",
@@ -67,32 +120,66 @@ int main(int argc, char *argv[]) {
                   )
                   for define, header in HEADERS.items()
               ] + ['   fprintf(f, "\\n");'] +
+              define("HAVE_FILENO") +
+              define("HAVE_FSTAT") +
               define("HAVE_GETADDRINFO") +
+              define("HAVE_ISCNTRL") +
               define("HAVE_SNPRINTF") +
+              define("HAVE_UINTPTR_T") +
               define("HAVE_VSNPRINTF") +
               define("STDC_HEADERS") +
+              linux_only("HAVE_DECL_STRRCHRNUL") +
               linux_only("HAVE_EXPLICIT_BZERO") +
+              linux_only("HAVE_FACCESSAT") +
               linux_only("HAVE_GETRANDOM") +
+              linux_only("HAVE_MEMPCPY") +
               linux_only("HAVE_OPEN64") +
               linux_only("HAVE_STATIC_ASSERT_IN_ASSERT_H") +
+              linux_only("HAVE_STRRCHRNUL") +
               non_osx("HAVE_FTIME") +
               non_windows("HAVE_CLOCK_GETTIME") +
               non_windows("HAVE_DECL_GETENTROPY") +
               non_windows("HAVE_DECL_GLOB") +
               non_windows("HAVE_DECL_MMAP") +
+              non_windows("HAVE_DECL_STRCASECMP") +
+              non_windows("HAVE_DECL_STRNCASECMP") +
+              non_windows("HAVE_DECL_STRNLEN") +
+              non_windows("HAVE_DECL_STRSEP") +
               non_windows("HAVE_DLOPEN") +
+              non_windows("HAVE_FSEEKO") +
+              non_windows("HAVE_FTRUNCATE") +
               non_windows("HAVE_GETENTROPY") +
+              non_windows("HAVE_GETGID") +
+              non_windows("HAVE_GETPAGESIZE") +
+              non_windows("HAVE_GETRLIMIT") +
               non_windows("HAVE_GETTIMEOFDAY") +
+              non_windows("HAVE_GETUID") +
               non_windows("HAVE_GMTIME_R") +
+              non_windows("HAVE_HTOLE16") +
+              non_windows("HAVE_HTOLE32") +
+              non_windows("HAVE_HTOLE64") +
+              non_windows("HAVE_ISASCII") +
               non_windows("HAVE_LIBPTHREAD") +
               non_windows("HAVE_LOCALTIME_R") +
               non_windows("HAVE_MAX_ALIGN_T") +
+              non_windows("HAVE_MMAP") +
+              non_windows("HAVE_PATHCONF") +
+              non_windows("HAVE_REALPATH") +
               non_windows("HAVE_SENDMSG") +
               non_windows("HAVE_STAT") +
+              non_windows("HAVE_STRCASECMP") +
+              non_windows("HAVE_STRNCASECMP") +
+              non_windows("HAVE_STRNLEN") +
+              non_windows("HAVE_STRSEP") +
+              non_windows("HAVE_STRUCT_STAT") +
               non_windows("HAVE_STRXFRM_L") +
               non_windows("HAVE_SYSCALL") +
+              non_windows("HAVE_SYSCONF") +
               non_windows("HAVE_SYS_CDEFS_BEGIN_END_DECLS") +
+              non_windows("HAVE_S_ISREG") +
               non_windows("HAVE__STATIC_ASSERT") +
+              osx_only("HAVE_DECL_STRLCPY") +
+              osx_only("HAVE_STRLCPY") +
               windows_only("HAVE__STAT") +
               # Non-standard ones, do we actually want to include these to maximize compatibility?
               linux_only("HAVE_ABSTRACT_SOCKETS") +
