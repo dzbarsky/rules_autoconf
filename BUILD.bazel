@@ -1,11 +1,12 @@
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
-load("//:defs.bzl", "non_osx", "non_windows", "windows_only", "define")
+load("//:defs.bzl", "linux_only", "non_osx", "non_windows", "windows_only", "define")
 
 HEADERS = {
 	"HAVE_ATTR_XATTR_H": "attr/xattr.h",
 	"HAVE_DLFCN_H": "dlfcn.h",
+	"HAVE_ENDIAN_H": "endian.h",
 	"HAVE_ERRNO_H": "errno.h",
 	"HAVE_FCNTL_H": "fcntl.h",
 	"HAVE_GRP_H": "grp.h",
@@ -18,17 +19,24 @@ HEADERS = {
 	"HAVE_POLL_H": "poll.h",
 	"HAVE_PTHREAD_H": "pthread.h",
 	"HAVE_PWD_H": "pwd.h",
+	"HAVE_STDBOOL_H": "stdbool.h",
 	"HAVE_STDINT_H": "stdint.h",
 	"HAVE_STDIO_H": "stdio.h",
 	"HAVE_STDLIB_H": "stdlib.h",
 	"HAVE_STRING_H": "string.h",
 	"HAVE_STRINGS_H": "strings.h",
+	"HAVE_SYS_CDEFS_H": "sys/cdefs.h",
+	"HAVE_SYS_ENDIAN_H": "sys/endian.h",
+	"HAVE_SYS_PARAM_H": "sys/param.h",
+	"HAVE_SYS_RANDOM_H": "sys/random.h",
 	"HAVE_SYS_SELECT_H": "sys/select.h",
 	"HAVE_SYS_STAT_H": "sys/stat.h",
+	"HAVE_SYS_SYSCALL_H": "sys/syscall.h",
 	"HAVE_SYS_TIMEB_H": "sys/timeb.h",
 	"HAVE_SYS_TIME_H": "sys/time.h",
 	"HAVE_SYS_TYPES_H": "sys/types.h",
 	"HAVE_SYS_XATTR_H": "sys/xattr.h",
+	"HAVE_UCONTEXT_H": "ucontext.h",
 	"HAVE_UNISTD_H": "unistd.h",
 	"HAVE_WCHAR_H": "wchar.h",
 	"HAVE_XLOCALE_H": "xlocale.h",
@@ -50,29 +58,44 @@ int main(int argc, char *argv[]) {
 
     fprintf(f, "#ifndef _RULES_AUTOCONF_CONFIG_H\\n");
     fprintf(f, "#define _RULES_AUTOCONF_CONFIG_H\\n\\n");
-"""] + [
+"""] +[
 """#if __has_include(<{header}>)
     fprintf(f, "#define {define} 1\\n");
 #endif""".format(define=define, header=header)
 	for define, header in HEADERS.items()
-] + ['   fprintf(f, "\\n");'] +
-non_windows("HAVE_CLOCK_GETTIME") +
+] +['   fprintf(f, "\\n");'] +
+define("HAVE_GETADDRINFO") +
+define("HAVE_SNPRINTF") +
+define("HAVE_VSNPRINTF") +
+define("STDC_HEADERS") +
+linux_only("HAVE_EXPLICIT_BZERO") +
+linux_only("HAVE_GETRANDOM") +
+linux_only("HAVE_OPEN64") +
+linux_only("HAVE_STATIC_ASSERT_IN_ASSERT_H") +
 non_osx("HAVE_FTIME") +
-non_windows("HAVE_GETTIMEOFDAY") +
-non_windows("HAVE_GMTIME_R") +
-non_windows("HAVE_LIBPTHREAD") +
-non_windows("HAVE_LOCALTIME_R") +
-non_windows("HAVE_STAT") +
-non_windows("HAVE_STRXFRM_L") +
-windows_only("HAVE__STAT") +
+non_windows("HAVE_CLOCK_GETTIME") +
 non_windows("HAVE_DECL_GETENTROPY") +
 non_windows("HAVE_DECL_GLOB") +
 non_windows("HAVE_DECL_MMAP") +
 non_windows("HAVE_DLOPEN") +
+non_windows("HAVE_GETENTROPY") +
+non_windows("HAVE_GETTIMEOFDAY") +
+non_windows("HAVE_GMTIME_R") +
+non_windows("HAVE_LIBPTHREAD") +
+non_windows("HAVE_LOCALTIME_R") +
+non_windows("HAVE_MAX_ALIGN_T") +
+non_windows("HAVE_SENDMSG") +
+non_windows("HAVE_STAT") +
+non_windows("HAVE_STRXFRM_L") +
+non_windows("HAVE_SYSCALL") +
+non_windows("HAVE_SYS_CDEFS_BEGIN_END_DECLS") +
+non_windows("HAVE__STATIC_ASSERT") +
+windows_only("HAVE__STAT") +
+# Non-standard ones, do we actually want to include these to maximize compatibility?
+linux_only("HAVE_ABSTRACT_SOCKETS") +
 non_windows("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR") +
-define("HAVE_SNPRINTF") +
-define("HAVE_VSNPRINTF") +
-define("STDC_HEADERS") +
+linux_only("HAVE_SYMVER") +
+linux_only("HAVE_SYS_CDEFS_THROW") +
 ["""
     fprintf(f, "\\n#endif // _RULES_AUTOCONF_CONFIG_H\\n");
     fclose(f);
