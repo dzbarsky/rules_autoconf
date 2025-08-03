@@ -30,3 +30,9 @@ def non_osx(name):
         "@platforms//os:osx": [],
         "//conditions:default": define(name),
     })
+
+def non_msvc(name):
+    return select({
+        "@rules_cc//cc/compiler:msvc-cl": [],
+        "//conditions:default": define(name),
+    })

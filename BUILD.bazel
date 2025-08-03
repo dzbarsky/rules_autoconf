@@ -1,7 +1,7 @@
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
-load("//:defs.bzl", "define", "linux_only", "non_osx", "non_windows", "osx_only", "windows_only")
+load("//:defs.bzl", "define", "linux_only", "non_msvc", "non_osx", "non_windows", "osx_only", "windows_only")
 
 HEADERS = {
     "HAVE_ARPA_INET_H": "arpa/inet.h",
@@ -127,6 +127,8 @@ int main(int argc, char *argv[]) {
               define("HAVE_SNPRINTF") +
               define("HAVE_UINTPTR_T") +
               define("HAVE_VSNPRINTF") +
+              define("HAVE___INLINE") +
+              define("HAVE___RESTRICT") +
               define("STDC_HEADERS") +
               linux_only("HAVE_DECL_STRRCHRNUL") +
               linux_only("HAVE_EXPLICIT_BZERO") +
@@ -136,6 +138,28 @@ int main(int argc, char *argv[]) {
               linux_only("HAVE_OPEN64") +
               linux_only("HAVE_STATIC_ASSERT_IN_ASSERT_H") +
               linux_only("HAVE_STRRCHRNUL") +
+              non_msvc("HAVE_GNU_INLINE") +
+              non_msvc("HAVE_INLINE") +
+              non_msvc("HAVE___INLINE__") +
+              non_msvc("HAVE_RESTRICT") +
+              non_msvc("HAVE___RESTRICT__") +
+              non_msvc("HAVE_VARIADIC_MACROS") +
+              non_msvc("HAVE_TYPEOF") +
+              non_msvc("HAVE__BOOL") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_CONST") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_DEPRECATED") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_FORMAT") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_MALLOC") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_NORETURN") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_NONNULL") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_PACKED") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_PURE") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_SENTINEL") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_UNUSED") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_VISIBILITY") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_WARN_UNUSED_RESULT") +
+              non_msvc("HAVE_FUNC_ATTRIBUTE_SYMVER") +
               non_osx("HAVE_FTIME") +
               non_windows("HAVE_CLOCK_GETTIME") +
               non_windows("HAVE_DECL_GETENTROPY") +
@@ -183,7 +207,6 @@ int main(int argc, char *argv[]) {
               windows_only("HAVE__STAT") +
               # Non-standard ones, do we actually want to include these to maximize compatibility?
               linux_only("HAVE_ABSTRACT_SOCKETS") +
-              non_windows("HAVE_FUNC_ATTRIBUTE_DESTRUCTOR") +
               linux_only("HAVE_SYMVER") +
               linux_only("HAVE_SYS_CDEFS_THROW") + [
         """
