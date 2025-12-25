@@ -152,8 +152,8 @@ int main(int argc, char *argv[]) {
                   for define, header in HEADERS.items()
               ] + ['   fprintf(f, "\\n");'] +
               select({
-                ":is_64bit": define("SIZEOF_LONG", 64),
-                ":is_32bit": define("SIZEOF_LONG", 32),
+                ":is_64bit": define("SIZEOF_LONG", 8),
+                ":is_32bit": define("SIZEOF_LONG", 4),
               }) +
               define("HAVE_ABORT") +
               define("HAVE_ABS") +
