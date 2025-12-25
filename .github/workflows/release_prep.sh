@@ -19,8 +19,32 @@ cat << EOF
 Add to your \`MODULE.bazel\` file:
 
 \`\`\`starlark
-bazel_dep(name = "com_myorg_rules_autoconf", version = "${TAG:1}")
+bazel_dep(name = "rules_autoconf", version = "${TAG:1}")
 \`\`\`
+
+Add a \`config.h\` file that includes the generated header:
+\`\`\`c
+# pragma once
+
+#include <rules_autoconf/config.h>
+\`\`\`
+
+Create a `cc_library` target combining them:
+\`\`\`starlark
+cc_library(
+    name = "config",
+    hdrs = ["config.h"],
+    deps = ["@rules_autoconf//:config"],
+    defines = select({
+        "@platforms//os:windows": [
+            "MORE_DEFINES_YOU_NEED",
+        ],
+        "//conditions:default": [],
+    }),
+    visibility = ["//:__subpackages__"],
+)
+\`\`\`
+
 EOF
 
 echo "\`\`\`"
