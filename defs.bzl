@@ -1,5 +1,5 @@
-def define(name):
-    return ["""   fprintf(f, "#define %s 1\\n");""" % name]
+def define(name, value = 1):
+    return ["""   fprintf(f, "#define %s %s\\n");""" % (name, value)]
 
 def non_windows(name):
     return select({

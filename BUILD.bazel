@@ -1,7 +1,30 @@
-load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
+load("@bazel_lib//lib:run_binary.bzl", "run_binary")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
+load("@bazel_skylib//lib:selects.bzl", "selects")
+load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
 load("//:defs.bzl", "define", "linux_only", "non_msvc", "non_osx", "non_windows", "osx_only", "windows_only")
+
+selects.config_setting_group(
+    name = "is_64bit",
+    match_any = [
+        "@platforms//cpu:x86_64",
+        "@platforms//cpu:aarch64",
+        "@platforms//cpu:s390x",
+        "@platforms//cpu:riscv64",
+    ],
+)
+
+selects.config_setting_group(
+    name = "is_32bit",
+    match_any = [
+        "@platforms//cpu:x86_32",
+        "@platforms//cpu:armv7",
+        "@platforms//cpu:ppc",
+        "@platforms//cpu:riscv32",
+    ],
+)
 
 HEADERS = {
     "HAVE_ARPA_INET_H": "arpa/inet.h",
@@ -97,6 +120,10 @@ HEADERS = {
     "HAVE_WCHAR_H": "wchar.h",
     "HAVE_WCTYPE_H": "wctype.h",
     "HAVE_XLOCALE_H": "xlocale.h",
+} | {
+    # TOOD(zbarsky): These are not really canonical, but probably good enough.
+    "HAVE_MPROTECT": "sys/mman.h",
+    "HAVE_PTHREADS": "pthread.h",
 }
 
 write_file(
@@ -124,6 +151,10 @@ int main(int argc, char *argv[]) {
                   )
                   for define, header in HEADERS.items()
               ] + ['   fprintf(f, "\\n");'] +
+              select({
+                ":is_64bit": define("SIZEOF_LONG", 64),
+                ":is_32bit": define("SIZEOF_LONG", 32),
+              }) +
               define("HAVE_ABORT") +
               define("HAVE_ABS") +
               define("HAVE_ATEXIT") +
