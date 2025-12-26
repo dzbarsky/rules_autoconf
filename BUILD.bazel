@@ -358,7 +358,9 @@ int main(int argc, char *argv[]) {
               non_msvc("HAVE_FUNC_ATTRIBUTE_WARN_UNUSED_RESULT") +
               non_msvc("HAVE_GNU_INLINE") +
               non_msvc("HAVE_INLINE") +
+              non_msvc("HAVE_LRINT") +
               non_msvc("HAVE_RESTRICT") +
+              non_msvc("HAVE_ROUND") +
               non_msvc("HAVE_TYPEOF") +
               non_msvc("HAVE_VARIADIC_MACROS") +
               non_msvc("HAVE__BOOL") +
@@ -573,6 +575,7 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_READDIR") +
               non_windows("HAVE_READDIR_R") +
               non_windows("HAVE_READLINK") +
+              non_windows("HAVE_READLINK") +
               non_windows("HAVE_REALLOCARRAY") +
               non_windows("HAVE_REALPATH") +
               non_windows("HAVE_RENAME") +
@@ -584,9 +587,11 @@ int main(int argc, char *argv[]) {
               non_windows("HAVE_SENDMSG") +
               non_windows("HAVE_SETENV") +
               non_windows("HAVE_SETGID") +
+              non_windows("HAVE_SETRLIMIT") +
               non_windows("HAVE_SETUID") +
               non_windows("HAVE_SHM_OPEN") +
               non_windows("HAVE_SIGACTION") +
+              non_windows("HAVE_SIGSETJMP") +
               non_windows("HAVE_SLEEP") +
               non_windows("HAVE_SOCKET") +
               non_windows("HAVE_STAT") +
@@ -670,7 +675,8 @@ int main(int argc, char *argv[]) {
               define("HAVE_UNSIGNED_LONG_LONG") +
               linux_only("HAVE_ABSTRACT_SOCKETS") +
               linux_only("HAVE_SYMVER") +
-              linux_only("HAVE_SYS_CDEFS_THROW") + [
+              linux_only("HAVE_SYS_CDEFS_THROW") +
+              non_windows("HAVE_BIND_TEXTDOMAIN_CODESET") + [
         """
     fprintf(f, "\\n#endif // _RULES_AUTOCONF_CONFIG_H\\n");
     fclose(f);
