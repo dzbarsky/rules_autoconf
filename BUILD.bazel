@@ -359,6 +359,7 @@ int main(int argc, char *argv[]) {
               non_msvc("HAVE_GNU_INLINE") +
               non_msvc("HAVE_INLINE") +
               non_msvc("HAVE_LRINT") +
+              non_msvc("HAVE_LRINTF") +
               non_msvc("HAVE_RESTRICT") +
               non_msvc("HAVE_ROUND") +
               non_msvc("HAVE_TYPEOF") +
