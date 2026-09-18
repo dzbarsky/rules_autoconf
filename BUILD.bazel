@@ -143,9 +143,9 @@ int main(int argc, char *argv[]) {
     fprintf(f, "#ifndef _RULES_AUTOCONF_CONFIG_H\\n");
     fprintf(f, "#define _RULES_AUTOCONF_CONFIG_H\\n\\n");
 """] + [
-                  """#if __has_include(<{header}>)
+                  """    fprintf(f, "#if __has_include(<{header}>)\\n");
     fprintf(f, "#define {define} 1\\n");
-#endif""".format(
+    fprintf(f, "#endif\\n");""".format(
                       define = define,
                       header = header,
                   )
@@ -708,5 +708,16 @@ cc_library(
 cc_test(
     name = "config_test",
     srcs = ["config_test.c"],
+    deps = [":config"],
+)
+
+# Keep the target's header search different from config_generator's search.
+cc_test(
+    name = "config_no_system_headers_test",
+    srcs = ["config_test.c"],
+    copts = select({
+        "@platforms//os:windows": ["/X"],
+        "//conditions:default": ["-nostdinc"],
+    }),
     deps = [":config"],
 )
